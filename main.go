@@ -20,10 +20,10 @@ var urls = []string{
 	"https://apis.nesgnas.uk/persons",
 }
 
-const repeat = 100
+const repeat = 30
 const outDir = "hey_results"
-const requestCounter = 100
-const worker = 10
+const requestCounter = 1000
+const worker = 100
 
 type HeyResult struct {
 	URL     string
