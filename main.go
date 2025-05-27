@@ -16,14 +16,14 @@ import (
 )
 
 var urls = []string{
-	"https://apis.nesgnas.uk/persons",
 	"https://green-apis.nesgnas.uk/persons",
+	"https://apis.nesgnas.uk/persons",
 }
 
-const repeat = 10
+const repeat = 100
 const outDir = "hey_results"
-const requestCounter = 1000
-const worker = 100
+const requestCounter = 100
+const worker = 10
 
 type HeyResult struct {
 	URL     string
@@ -82,15 +82,16 @@ func generateLineChart(data []HeyResult, metric string, title string, filename s
 	line.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{Title: title}),
 		charts.WithYAxisOpts(opts.YAxis{Name: metric}),
+		charts.WithXAxisOpts(opts.XAxis{Name: "Test Run"}),
 	)
 
 	urlGroups := map[string][]opts.LineData{}
 	xAxis := []string{}
+	for i := 1; i <= repeat; i++ {
+		xAxis = append(xAxis, fmt.Sprintf("%d", i))
+	}
 
-	for i, d := range data {
-		label := fmt.Sprintf("%s-%d", d.URL, i+1)
-		xAxis = append(xAxis, label)
-
+	for _, d := range data {
 		urlGroups[d.URL] = append(urlGroups[d.URL], opts.LineData{Value: extractMetric(d, metric)})
 	}
 
@@ -256,4 +257,3 @@ func main() {
 	generateLineChart(csvResults, "total", "Total Time", "chart_total.html")
 
 }
-
