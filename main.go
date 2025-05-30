@@ -17,7 +17,7 @@ import (
 
 var urls = []string{
 	"https://green-apis.nesgnas.uk/persons",
-	"https://apisnesgnas.uk/persons",
+	"https://api.nesgnas.uk/persons",
 }
 
 const repeat = 30
